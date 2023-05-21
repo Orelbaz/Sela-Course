@@ -118,6 +118,3 @@ while running:
 
 # Quit the game
 pygame.quit()
-
-##gfhfh
-githubtest::::
