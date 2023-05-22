@@ -1,2 +1,0 @@
-# Shooting game
-Project1
