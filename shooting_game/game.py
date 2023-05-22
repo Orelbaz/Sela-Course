@@ -173,7 +173,5 @@ while running:
 
     pygame.display.flip()
 
-#afafafaffa
-
 pygame.quit()
 
