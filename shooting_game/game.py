@@ -19,23 +19,24 @@ GREEN = (0, 255, 0)
 player_width, player_height = 50, 50
 player_x = screen_width // 2 - player_width // 2
 player_y = screen_height - player_height - 10
-player_speed = 3
+player_speed = 5
 player_movement = 0
 player = pygame.Rect(player_x, player_y, player_width, player_height)
 
 # Bullet
 bullet_width, bullet_height = 10, 30
-bullet_speed = 2  # Slower bullet speed
+bullet_speed = 8
 bullet_state = "ready"
 bullet = pygame.Rect(0, 0, bullet_width, bullet_height)
 
 # Enemies
 enemy_width, enemy_height = 50, 50
-enemy_speed = 0.1
+enemy_speed = 2
 enemy_bullet_width, enemy_bullet_height = 10, 30
-enemy_bullet_speed = 0.1  # Slower enemy bullet speed
-enemy_bullet_delay = 100
+enemy_bullet_speed = 8
+enemy_bullet_delay = 500  # Decreased delay for more frequent enemy bullets
 enemies = []
+enemy_bullets = []
 num_enemies = 5
 for _ in range(num_enemies):
     enemy_x = random.randint(0, screen_width - enemy_width)
@@ -60,6 +61,7 @@ power_up = None
 # Game loop
 running = True
 game_over = False
+clock = pygame.time.Clock()
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -105,7 +107,6 @@ while running:
 
         if enemy.y >= screen_height:
             enemies.remove(enemy)
-            game_over = True
 
         if pygame.time.get_ticks() - enemy_last_shot >= enemy_bullet_delay:
             enemy_bullet = pygame.Rect(
@@ -114,7 +115,7 @@ while running:
                 enemy_bullet_width,
                 enemy_bullet_height,
             )
-            enemies.append(enemy_bullet)
+            enemy_bullets.append(enemy_bullet)
             enemy_last_shot = pygame.time.get_ticks()
 
             if enemy_bullet.colliderect(player):
@@ -144,6 +145,8 @@ while running:
     pygame.draw.rect(screen, RED, bullet)
     for enemy in enemies:
         pygame.draw.rect(screen, BLACK, enemy)
+    for enemy_bullet in enemy_bullets:
+        pygame.draw.rect(screen, BLACK, enemy_bullet)
 
     if power_up is not None:
         pygame.draw.rect(screen, GREEN, power_up.rect)
@@ -172,6 +175,6 @@ while running:
         running = False
 
     pygame.display.flip()
+    clock.tick(60)
 
 pygame.quit()
-
