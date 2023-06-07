@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# make sure to change to your instances region
 region="your_region"
 action=$1
 
