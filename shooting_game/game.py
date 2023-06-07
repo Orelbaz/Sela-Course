@@ -38,6 +38,10 @@ enemy_bullet_delay = 500  # Decreased delay for more frequent enemy bullets
 enemies = []
 enemy_bullets = []
 num_enemies = 5
+max_level = 6
+level = 1
+enemy_speed_multiplier = 1
+enemy_bullet_delay_multiplier = 1
 for _ in range(num_enemies):
     enemy_x = random.randint(0, screen_width - enemy_width)
     enemy_y = random.randint(50, 200)
@@ -165,14 +169,39 @@ while running:
         running = False
 
     elif len(enemies) == 0:
-        win_text = font.render("You won the game!", True, RED)
-        screen.blit(
-            win_text,
-            (screen_width // 2 - win_text.get_width() // 2, screen_height // 2 - win_text.get_height() // 2),
-        )
-        pygame.display.flip()
-        pygame.time.wait(3000)
-        running = False
+        level += 1
+        if level <= max_level:
+            player.x = screen_width // 2 - player_width // 2
+            bullet_state = "ready"
+            enemy_bullets.clear()
+            enemies.clear()
+            for _ in range(num_enemies + level * 2):
+                enemy_x = random.randint(0, screen_width - enemy_width)
+                enemy_y = random.randint(50, 200)
+                enemies.append(pygame.Rect(enemy_x, enemy_y, enemy_width, enemy_height))
+            enemy_speed_multiplier += 0.5
+            enemy_bullet_delay_multiplier += 0.5
+            enemy_speed = int(enemy_speed_multiplier * level)
+            enemy_bullet_speed *= 2  # Double the enemy bullet speed
+            enemy_bullet_delay = max(100, int(enemy_bullet_delay_multiplier * level * 500))
+            num_enemies *= 2  # Double the number of enemies
+
+            level_text = font.render("Level " + str(level), True, RED)
+            screen.blit(
+                level_text,
+                (screen_width // 2 - level_text.get_width() // 2, screen_height // 2 - level_text.get_height() // 2),
+            )
+            pygame.display.flip()
+            pygame.time.wait(2000)
+        else:
+            win_text = font.render("You won the game!", True, RED)
+            screen.blit(
+                win_text,
+                (screen_width // 2 - win_text.get_width() // 2, screen_height // 2 - win_text.get_height() // 2),
+            )
+            pygame.display.flip()
+            pygame.time.wait(3000)
+            running = False
 
     pygame.display.flip()
     clock.tick(60)
