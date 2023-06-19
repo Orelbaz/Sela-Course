@@ -21,7 +21,7 @@ pipeline {
         stage('Packaging To S3') {
             steps {
                 sh 'echo "packaging"'
-                sh 'tar -czvf crypto.tar.gz Sela-course'
+                sh 'tar -czvf alpaca.tar.gz Sela-course'
                 sh 'ls'
             }
         }
