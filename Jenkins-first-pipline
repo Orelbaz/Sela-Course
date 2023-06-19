@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        EC2_IP = "18.185.36.47"
+        EC2_IP = "3.75.223.166"
     }
     stages {
         stage('Cleanup') {
@@ -46,7 +46,7 @@ pipeline {
                     sudo yum install python -y
                     sudo yum install python-pip -y
                     sudo pip install ansible
-                    ansible-playbook jenkins-test/ansible/flask-notebook.yml 
+                    ansible-playbook /home/ec2-user/jenkins-test/ansible/flask-playbook.yml 
                     '
                     """
                 }
