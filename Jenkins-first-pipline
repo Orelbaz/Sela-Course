@@ -38,9 +38,17 @@ pipeline {
         }
         stage('Test-server') {
             steps {
-                sh 'echo "Connecting to instance for testing..."'
-                sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${EC2_IP} "tar -xzvf /home/ec2-user/jenkins.tar.gz"'
-                sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${EC2_IP} "rm /home/ec2-user/jenkins.tar.gz"'
+                script {
+                    sh """ 
+                    ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${EC2_IP} '
+                    tar -xvf /home/ec2-user/jenkins.tar.gz
+                    rm -r jenkins.tar.gz
+                    sudo yum install python -y
+                    sudo yum install python-pip -y
+                    sudo pip install ansible
+                    '
+                    """
+                }
             }
         }
     }
