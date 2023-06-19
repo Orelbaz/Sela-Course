@@ -30,17 +30,10 @@ pipeline {
                 sh 'aws s3 cp alpaca.tar.gz s3://jenkins-test-or1'
             }
         }
-        stage('Check Connection') {
+        stage('Copy for S3 to EC2') {
             steps {
                 sh 'echo "Checking for connection..."'
-                sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${EC2_IP} ls'
-            }
-        }
-        stage('Copy From S3 to EC2') {
-            steps {
-                sh 'echo "Copying from S3 to EC2..."'
-                sh 'aws s3 cp s3://jenkins-test-or1/alpaca.tar.gz /home/ec2-user/alpaca.tar.gz'
-
+                sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${EC2_IP} "aws s3 cp s3://jenkins-test-or1/alpaca.tar.gz /home/ec2-user/alpaca.tar.gz"'
             }
         }
     }
