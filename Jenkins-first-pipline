@@ -38,5 +38,6 @@ pipeline {
             steps {
                 sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${EC2_IP}'
             }
-        }
-                  
+        }                
+     }
+  }
