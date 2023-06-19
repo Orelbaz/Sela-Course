@@ -36,5 +36,12 @@ pipeline {
                 sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${EC2_IP} "aws s3 cp s3://jenkins-test-or1/jenkins.tar.gz /home/ec2-user/jenkins.tar.gz"'
             }
         }
+        stage('Test-server') {
+            steps {
+                sh 'echo "Connecting to instance for testing..."'
+                sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${EC2_IP} "tar -xzvf /home/ec2-user/jenkins.tar.gz"'
+                sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${EC2_IP} "rm /home/ec2-user/jenkins.tar.gz"'
+            }
+        }
     }
 }
