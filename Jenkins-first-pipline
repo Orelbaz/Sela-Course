@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        EC2_IP = "35.158.214.224"
+        EC2_IP = "18.185.36.47"
     }
     stages {
         stage('Cleanup') {
