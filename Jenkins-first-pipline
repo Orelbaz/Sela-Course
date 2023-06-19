@@ -1,9 +1,8 @@
 pipeline {
     agent any
-        environment {
-        EC2_IP = "35.158.162.227"
+    environment {
+        EC2_IP = "3.122.223.48"
     }
-
     stages {
         stage('Cleanup') {
             steps {
@@ -20,24 +19,29 @@ pipeline {
         }
         stage('Packaging To S3') {
             steps {
-                sh 'echo "packaging"'
+                sh 'echo "Packaging..."'
                 sh 'tar -czvf alpaca.tar.gz Sela-course'
                 sh 'ls'
             }
         }
-        
         stage('Push To Cloud') {
             steps {
-                sh 'echo "pushing to s3"'
-                sh 'echo "packaging"'
+                sh 'echo "Pushing to S3..."'
                 sh 'aws s3 cp alpaca.tar.gz s3://jenkins-test-or1'
             }
         }
-        
-        stage('check for the connection'){
+        stage('Check Connection') {
             steps {
-                sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${EC2_IP}'
+                sh 'echo "Checking for connection..."'
+                sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${EC2_IP} ls'
             }
-        }                
+        }
+        stage('Copy From S3 to EC2') {
+            steps {
+                sh 'echo "Copying from S3 to EC2..."'
+                sh 'aws s3 cp s3://jenkins-test-or1/alpaca.tar.gz /home/ec2-user/alpaca.tar.gz'
+
+            }
+        }
     }
 }
