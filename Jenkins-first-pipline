@@ -31,9 +31,9 @@ pipeline {
                     tar -xvf /home/ec2-user/jenkins.tar.gz
                     rm -r jenkins.tar.gz
                     /bin/bash ./jenkins-test/deploy_script.sh
+                    sudo systemctl stop flask.service
                     '
                     """
-                    sh 'sudo systemctl stop flask.service'
                     sh 'echo "Running tests..."'
                     sh '/bin/bash "/var/lib/jenkins/workspace/second-pipeline/jenkins-test/Testing.sh"'
                } 
