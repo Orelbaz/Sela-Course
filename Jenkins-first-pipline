@@ -33,6 +33,8 @@ pipeline {
                     /bin/bash ./jenkins-test/deploy_script.sh
                     '
                     """
+                    sh 'echo "Running tests..."'
+                    sh '/bin/bash "/var/lib/jenkins/workspace/second-pipeline/jenkins-test/tests.sh"'
                } 
             }
         }
