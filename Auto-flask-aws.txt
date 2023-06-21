@@ -6,3 +6,5 @@ git clone https://github.com/Orelbaz/Sela-course.git
 cd Sela-course/alpaca-flask/
 pip install -r requirements.txt
 flask run --host=0.0.0.0
+
+1
