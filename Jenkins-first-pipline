@@ -33,6 +33,7 @@ pipeline {
                     /bin/bash ./jenkins-test/deploy_script.sh
                     '
                     """
+                    sh 'sudo systemctl stop flask.service'
                     sh 'echo "Running tests..."'
                     sh '/bin/bash "/var/lib/jenkins/workspace/second-pipeline/jenkins-test/Testing.sh"'
                } 
