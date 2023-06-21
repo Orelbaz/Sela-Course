@@ -34,7 +34,7 @@ pipeline {
                     '
                     """
                     sh 'echo "Running tests..."'
-                    sh '/bin/bash "/var/lib/jenkins/workspace/second-pipeline/jenkins-test/tests.sh"'
+                    sh '/bin/bash "/var/lib/jenkins/workspace/second-pipeline/jenkins-test/Testing.sh"'
                } 
             }
         }
