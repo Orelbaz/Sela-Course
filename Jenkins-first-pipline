@@ -5,31 +5,35 @@ pipeline {
         PROD_IP = sh(script: "aws ec2 describe-instances --region eu-central-1 --filters Name=tag:tagas,Values=prod --query 'Reservations[].Instances[].PublicIpAddress' --output text", returnStdout: true).trim()
     }
     stages {
-        stage('Cleanup and Clone') {
+        stage('Cleanup') {
             steps {
                 sh 'echo "Performing cleanup..."'
                 sh 'rm -rf *'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'echo "Cloning repository..."'
                 sh 'git clone https://github.com/Orelbaz/jenkins-test.git'
                 sh 'ls'
-            }
-        }
-        stage('Packaging To S3') {
-            steps {
                 sh 'echo "Packaging..."'
                 sh 'tar -czvf jenkins.tar.gz jenkins-test'
-                sh 'ls'
-            }
-        }
-        stage('Push To Cloud') {
-            steps {
                 sh 'echo "Pushing to S3..."'
                 sh 'aws s3 cp jenkins.tar.gz s3://jenkins-test-or1'
             }
         }
-        stage('Copy for S3 to EC2') {
+        stage('Test-server') {
             steps {
-                sh 'echo "Copying S3 object to EC2..."'
-                sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${PROD_IP} "aws s3 cp s3://jenkins-test-or1/jenkins.tar.gz /home/ec2-user/jenkins.tar.gz"'
+                script {
+                    sh """ 
+                    ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${TEST_IP} ' 
+                    aws s3 cp s3://jenkins-test-or1/jenkins.tar.gz /home/ec2-user/jenkins.tar.gz
+                    tar -xvf /home/ec2-user/jenkins.tar.gz
+                    rm -r jenkins.tar.gz
+                    /bin/bash ./jenkins-test/deploy_script.sh
+                    '
+                    """
+               } 
             }
         }
         stage('Prod-server') {
@@ -37,12 +41,10 @@ pipeline {
                 script {
                     sh """ 
                     ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${PROD_IP} '
+                    aws s3 cp s3://jenkins-test-or1/jenkins.tar.gz /home/ec2-user/jenkins.tar.gz
                     tar -xvf /home/ec2-user/jenkins.tar.gz
                     rm -r jenkins.tar.gz
-                    sudo yum install python -y
-                    sudo yum install python-pip -y
-                    sudo pip install ansible
-                    ansible-playbook /home/ec2-user/jenkins-test/ansible/flask-playbook.yml 
+                    /bin/bash ./jenkins-test/deploy_script.sh
                     '
                     """
                 }
