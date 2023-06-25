@@ -1,8 +1,0 @@
-#!/bin/bash
-sudo yum update -y
-sudo yum install git -y
-sudo yum install python3-pip -y
-git clone https://github.com/Orelbaz/Sela-course.git
-cd Sela-course/alpaca-flask/
-pip install -r requirements.txt
-flask run --host=0.0.0.0
