@@ -1,5 +1,5 @@
 import requests
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
@@ -22,12 +22,16 @@ def get_realtime_price(symbol):
         return 'N/A'
 
 
-
 @app.route('/')
 def index():
-    for coin in coins:
-        coin['worth'] = get_realtime_price(coin['symbol'])
     return render_template('index.html', coins=coins)
+
+
+@app.route('/get_realtime_price')
+def get_realtime_price_route():
+    symbol = request.args.get('symbol')
+    price = get_realtime_price(symbol)
+    return jsonify(price)
 
 
 if __name__ == '__main__':
