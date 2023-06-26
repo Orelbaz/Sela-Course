@@ -9,7 +9,7 @@
     {% for coin in coins %}
         <div class="coin-box">
             <h3>{{ coin.name }}</h3>
-            <p>Net Worth: <span id="{{ coin.symbol }}-worth"></span> $</p>
+            <p>Net Worth: <span id="{{ coin.symbol }}-worth">{{ coin.worth }}</span></p>
             <button onclick="showNetWorth(this, '{{ coin.symbol }}')">Show Net Worth</button>
             <p class="net-worth hidden" id="{{ coin.symbol }}-net-worth"></p>
         </div>
@@ -20,7 +20,7 @@
         function showNetWorth(button, symbol) {
             var netWorth = button.nextElementSibling;
             var realTimeNetWorth = document.getElementById(symbol + '-worth').textContent;
-            document.getElementById(symbol + '-net-worth').textContent = realTimeNetWorth + " $";
+            document.getElementById(symbol + '-net-worth').textContent = realTimeNetWorth;
             netWorth.classList.toggle('hidden');
         }
     </script>
