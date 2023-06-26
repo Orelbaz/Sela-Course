@@ -15,7 +15,12 @@ def get_realtime_price(symbol):
     url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={API_KEY}"
     response = requests.get(url)
     data = response.json()
-    return data['Global Quote']['05. price']
+
+    if 'Global Quote' in data and '05. price' in data['Global Quote']:
+        return data['Global Quote']['05. price']
+    else:
+        return 'N/A'
+
 
 
 @app.route('/')
