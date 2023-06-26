@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     sh """ 
-                    ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${TEST_IP} ' 
+                    ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or.pem ec2-user@${TEST_IP} ' 
                     aws s3 cp s3://jenkins-test-or1/jenkins.tar.gz /home/ec2-user/jenkins.tar.gz
                     tar -xvf /home/ec2-user/jenkins.tar.gz
                     rm -r jenkins.tar.gz
@@ -52,7 +52,7 @@ pipeline {
             steps {
                 script {
                     sh """ 
-                    ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or2.pem ec2-user@${PROD_IP} '
+                    ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/or.pem ec2-user@${PROD_IP} '
                     aws s3 cp s3://jenkins-test-or1/jenkins.tar.gz /home/ec2-user/jenkins.tar.gz
                     tar -xvf /home/ec2-user/jenkins.tar.gz
                     rm -r jenkins.tar.gz
