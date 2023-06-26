@@ -16,7 +16,7 @@
         <div class="coin-box">
             <h3>{{ coin.name }}</h3>
             <p>Symbol: {{ coin.symbol }}</p>
-            <p>Net Worth: <span id="{{ coin.symbol }}-worth">{{ coin.worth }}</span> $</p>
+            <p>Stock Worth: <span id="{{ coin.symbol }}-worth">{{ coin.worth }}</span> $</p>
             <button onclick="getRealTimePrice('{{ coin.symbol }}')">Show Net Worth</button>
         </div>
         {% endfor %}
