@@ -3,7 +3,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-API_KEY = "NX6VLQOK2DEROL37"
+API_KEY = "YOUR_ALPHA_VANTAGE_API_KEY"
 
 coins = [
     {'name': 'Bitcoin', 'symbol': 'BTC', 'worth': ''},
