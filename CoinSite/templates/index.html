@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coin/Share Worth</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Coin/Share Worth</h1>
+    {% for coin in coins %}
+        <div class="coin-box">
+            <h3>{{ coin.name }}</h3>
+            <p>Net Worth: {{ coin.worth }}</p>
+            <button onclick="showNetWorth(this)">Show Net Worth</button>
+            <p class="net-worth hidden">{{ coin.worth }}</p>
+        </div>
+    {% endfor %}
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
