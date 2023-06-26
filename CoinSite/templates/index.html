@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coin/Share Worth</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
 <body>
     <h1>Coin/Share Worth</h1>
-    {% for coin in coins %}
+
+    <div class="coin-container">
+        {% for coin in coins %}
         <div class="coin-box">
             <h3>{{ coin.name }}</h3>
-            <p>Net Worth: <span id="{{ coin.symbol }}-worth">{{ coin.worth }}</span></p>
-            <button onclick="showNetWorth(this, '{{ coin.symbol }}')">Show Net Worth</button>
-            <p class="net-worth hidden" id="{{ coin.symbol }}-net-worth"></p>
+            <p>Symbol: {{ coin.symbol }}</p>
+            <p>Net Worth: <span id="{{ coin.symbol }}-worth">{{ coin.worth }}</span> $</p>
+            <button onclick="getRealTimePrice('{{ coin.symbol }}')">Show Net Worth</button>
         </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script>
-        function showNetWorth(button, symbol) {
-            var netWorth = button.nextElementSibling;
-            var realTimeNetWorth = document.getElementById(symbol + '-worth').textContent;
-            document.getElementById(symbol + '-net-worth').textContent = realTimeNetWorth;
-            netWorth.classList.toggle('hidden');
-        }
-    </script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
+
 </html>

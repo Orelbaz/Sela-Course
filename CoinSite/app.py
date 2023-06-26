@@ -7,7 +7,13 @@ API_KEY = "YOUR_ALPHA_VANTAGE_API_KEY"
 
 coins = [
     {'name': 'Bitcoin', 'symbol': 'BTC', 'worth': ''},
-    {'name': 'Tesla', 'symbol': 'TSLA', 'worth': ''}
+    {'name': 'Tesla', 'symbol': 'TSLA', 'worth': ''},
+    {'name': 'Ethereum', 'symbol': 'ETH', 'worth': ''},
+    {'name': 'Amazon', 'symbol': 'AMZN', 'worth': ''},
+    {'name': 'Apple', 'symbol': 'AAPL', 'worth': ''},
+    {'name': 'Microsoft', 'symbol': 'MSFT', 'worth': ''},
+    {'name': 'Google', 'symbol': 'GOOGL', 'worth': ''},
+    {'name': 'Facebook', 'symbol': 'FB', 'worth': ''}
 ]
 
 
@@ -20,7 +26,6 @@ def get_realtime_price(symbol):
         return data['Global Quote']['05. price']
     else:
         return 'N/A'
-
 
 
 @app.route('/')

@@ -1,5 +1,10 @@
 /* Body background */
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     background: linear-gradient(to bottom, #4e54c8, #8f94fb);
     color: white;
     font-family: Arial, sans-serif;
@@ -52,4 +57,23 @@ button {
 
 button:hover {
     background-color: #564bbf;
+}
+
+/* Title styles */
+h1 {
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Coin container styles */
+.coin-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.coin-box {
+    flex: 0 0 calc(25% - 40px);
+    margin: 20px;
 }
