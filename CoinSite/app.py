@@ -22,6 +22,8 @@ def get_realtime_price(symbol):
     response = requests.get(url)
     data = response.json()
 
+    print(data)  # Print the response data for debugging
+
     if 'Global Quote' in data and '05. price' in data['Global Quote']:
         return data['Global Quote']['05. price']
     else:
