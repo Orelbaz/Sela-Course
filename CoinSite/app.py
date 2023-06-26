@@ -16,6 +16,7 @@ coins = [
     {'name': 'Facebook', 'symbol': 'FB', 'worth': ''}
 ]
 
+
 def get_realtime_price(symbol):
     url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={API_KEY}"
     response = requests.get(url)
@@ -26,11 +27,17 @@ def get_realtime_price(symbol):
     else:
         return 'N/A'
 
-@ app.route('/')
+
+@app.route('/')
 def index():
     for coin in coins:
         coin['worth'] = get_realtime_price(coin['symbol'])
     return render_template('index.html', coins=coins)
+
+
+@app.route('/get_price/<symbol>')
+def get_price(symbol):
+    return get_realtime_price(symbol)
 
 
 if __name__ == '__main__':
