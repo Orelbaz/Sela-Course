@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coin/Share Worth</title>
+    <title>Stock Worth</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
-    <h1>Coin/Share Worth</h1>
+    <h1>Stock Worth</h1>
 
     <div class="coin-container">
         {% for coin in coins %}
@@ -17,7 +17,7 @@
             <h3>{{ coin.name }}</h3>
             <p>Symbol: {{ coin.symbol }}</p>
             <p>Stock Worth: <span id="{{ coin.symbol }}-worth">{{ coin.worth }}</span> $</p>
-            <button onclick="getRealTimePrice('{{ coin.symbol }}')">Show Net Worth</button>
+            <button onclick="getRealTimePrice('{{ coin.symbol }}')">Show Stock Worth</button>
         </div>
         {% endfor %}
     </div>
