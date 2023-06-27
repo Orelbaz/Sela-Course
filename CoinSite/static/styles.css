@@ -27,16 +27,16 @@ body {
 
 .coin-box h3 {
     margin-top: 0;
-    font-size: 24px;
+    font-size: 26px;
 }
 
 .coin-box p {
     margin-bottom: 10px;
 }
 
-/* Net worth styles */
+/* Stock worth styles */
 .stock-worth {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
 }
 
@@ -61,7 +61,7 @@ button:hover {
 
 /* Title styles */
 h1 {
-    font-size: 40px;
+    font-size: 48px;
     text-align: center;
     margin-bottom: 20px;
 }
