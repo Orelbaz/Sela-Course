@@ -11,7 +11,7 @@ body {
 }
 
 /* Coin box styles */
-.coin-box {
+.stock-box {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     padding: 20px;
@@ -20,17 +20,17 @@ body {
     transition: all 0.3s ease;
 }
 
-.coin-box:hover {
+.stock-box:hover {
     transform: translateY(-5px);
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-.coin-box h3 {
+.stock-box h3 {
     margin-top: 0;
     font-size: 26px;
 }
 
-.coin-box p {
+.stock-box p {
     margin-bottom: 10px;
 }
 
@@ -66,14 +66,14 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Coin container styles */
-.coin-container {
+/* Stock container styles */
+.stock-container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.coin-box {
+.stock-box {
     flex: 0 0 calc(25% - 40px);
     margin: 20px;
 }
