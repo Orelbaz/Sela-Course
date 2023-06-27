@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 API_KEY = "YOUR_ALPHA_VANTAGE_API_KEY"
 
-stocks = [
+coins = [
     {'name': 'Tesla', 'symbol': 'TSLA', 'worth': ''},
     {'name': 'Amazon', 'symbol': 'AMZN', 'worth': ''},
     {'name': 'Apple', 'symbol': 'AAPL', 'worth': ''},
