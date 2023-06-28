@@ -18,6 +18,7 @@ body {
   margin-bottom: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .stock-box:hover {
@@ -51,4 +52,17 @@ h1 {
 .stock-box {
   flex: 0 0 calc(25% - 40px);
   margin: 20px;
+  animation: flashing-border 2s infinite;
+}
+
+@keyframes flashing-border {
+  0% {
+    border: 2px solid #fff;
+  }
+  50% {
+    border: 2px solid #8f94fb;
+  }
+  100% {
+    border: 2px solid #fff;
+  }
 }
