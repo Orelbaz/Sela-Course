@@ -18,13 +18,13 @@ resource "aws_instance" "test2" {
     inline = [
       "sudo yum update -y",
       "sudo yum install git -y",
-      "git clone https://github.com/Orelbaz/Jenkins.git",
+      "git clone https://github.com/Orelbaz/Sela-Course.git",
       "sudo yum install docker -y",
       "sudo curl -L \"https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
       "sudo chmod +x /usr/local/bin/docker-compose",
       "sudo systemctl enable docker",
       "sudo systemctl start docker",
-      "cd /home/ec2-user/Jenkins/Docker-compose-jenkins/CoinSite",
+      "cd /home/ec2-user/Sela-Course/Terraform",
       "sudo docker-compose up -d"
     ]
 
@@ -53,13 +53,13 @@ resource "aws_instance" "prod2" {
     inline = [
       "sudo yum update -y",
       "sudo yum install git -y",
-      "git clone https://github.com/Orelbaz/Jenkins.git",
+      "git clone https://github.com/Orelbaz/Sela-Course.git",
       "sudo yum install docker -y",
       "sudo curl -L \"https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
       "sudo chmod +x /usr/local/bin/docker-compose",
       "sudo systemctl enable docker",
       "sudo systemctl start docker",
-      "cd /home/ec2-user/Jenkins/Docker-compose-jenkins/CoinSite",
+      "cd /home/ec2-user/Sela-Course/Terraform",
       "sudo docker-compose up -d"
     ]
 
