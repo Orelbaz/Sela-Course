@@ -1,19 +1,18 @@
-#Dictionary of the players and there birthdays 
-football_players = {
-    "Lionel Messi": "June 24, 1987",
-    "Cristiano Ronaldo": "February 5, 1985",
-    "Neymar Jr.": "February 5, 1992",
-    "Kylian Mbappé": "December 20, 1998",
-    "Kevin De Bruyne": "June 28, 1991",
-    "Robert Lewandowski": "August 21, 1988",
-    "Mohamed Salah": "June 15, 1992",
-    "Virgil van Dijk": "July 8, 1991",
-    "Harry Kane": "July 28, 1993",
-    "Sergio Ramos": "March 30, 1986"   
+birthdays = {
+    "LeBron James": "December 30, 1984",
+    "Kevin Durant": "September 29, 1988",
+    "Stephen Curry": "March 14, 1988",
+    "Kawhi Leonard": "June 29, 1991",
+    "Giannis Antetokounmpo": "December 6, 1994"
 }
 
-print("welcom to the birthday dictinoary")
 
-i =input("who's birthday would you like to know? ")
 
-print(football_players[i])
+print('Welcome to the birthday dictionary. We know the birthdays of:')
+for key in birthdays:
+    print(key)
+
+print('Who\'s birthday do you want to look up?')
+player = input()
+
+print(f'{player}\'s birthday is {birthdays[player]}')

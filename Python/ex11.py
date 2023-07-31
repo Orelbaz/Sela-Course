@@ -1,10 +1,13 @@
 import math
 
-def prime_numbers(x):
-    if x < 2:
-        return False
-    for i in range(2, math.isqrt(x) + 1):
-        if x % i == 0:
-            print(prime_numbers(9) "The number is not prime number")
 
-    print(prime_numbers(9)"The number is prime number")
+def is_prime():
+    PRIME = int(input('Enter a number:'))
+    for num in range(2, int(math.sqrt(PRIME)) + 1):
+        if PRIME % num == 0:
+            return 'a loser number'
+        else:
+            return 'a PRIME number'
+
+
+print(is_prime())
