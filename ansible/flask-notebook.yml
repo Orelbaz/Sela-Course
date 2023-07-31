@@ -1,65 +1,79 @@
-- name: Execute commands playbook
-  hosts: httpd
-  become: true
+---
+- name: Setup Flask Application
+  hosts: localhost
+  gather_facts: false
+
   tasks:
     - name: Update system packages
+      become: true
       yum:
         name: '*'
         state: latest
-      become: true
-
-    - name: Install git package
-      yum:
-        name: git
-        state: present
-      become: true
-
-    - name: Install python3-pip package
-      yum:
-        name: python3-pip
-        state: present
-      become: true
-
-    - name: Clone repository
-      git:
-        repo: https://github.com/Orelbaz/Sela-course.git
-        dest: /Sela-course
-        version: main
-      become: true
+      tags: update
 
     - name: Change directory
-      shell: cd /Sela-course/alpaca-flask/
       become: true
+      command: cd /home/ec2-user/Jenkins/Ansible-jenkins/CoinSite/
+      tags: cd
 
     - name: Install Python dependencies
+      become: true
       pip:
-        requirements: /Sela-course/alpaca-flask/requirements.txt
-        state: present
+        requirements: /home/ec2-user/Jenkins/Ansible-jenkins/CoinSite/requirements.txt
+      tags: pip
+
+    - name: Set executable permissions for playbook
+      file:
+        path: /home/ec2-user/Jenkins/Ansible-jenkins/CoinSite/app.py
+        mode: ugo+rx
       become: true
 
-    - name: Install Flask
-      pip:
-        name: flask
-        state: present
+    - name: Copy Flask service file
       become: true
+      copy:
+        content: |
+          [Unit]
+          Description=Flask Web Application
+          After=network.target
 
-    - name: Create Flask systemd service
-      template:
-        src: flask.service.j2
+          [Service]
+          User=root
+          WorkingDirectory=/home/ec2-user/Jenkins/Ansible-jenkins/CoinSite
+          ExecStart=/usr/local/bin/flask run --host=0.0.0.0
+          Restart=always
+
+          [Install]
+          WantedBy=multi-user.target
         dest: /etc/systemd/system/flask.service
-      become: true
-      notify:
-        - Reload systemd
+      notify: Restart Flask Service
+      tags: service
 
-    - name: Start and enable Flask service
+    - name: Start Flask service
+      become: true
       systemd:
-        name: flask
+        name: flask.service
         state: started
         enabled: yes
-      become: true
+      tags: service
 
   handlers:
-    - name: Reload systemd
-      systemd:
-        daemon_reload: yes
+    - name: Restart Flask Service
       become: true
+      systemd:
+        name: flask.service
+        state: restarted
+
+    - name: Reload Systemd daemon
+      become: true
+      shell: systemctl daemon-reload
+      changed_when: false
+      ignore_errors: true
+      tags: service-reload
+
+    - name: Start Flask service (Retry)
+      become: true
+      systemd:
+        name: flask.service
+        state: started
+        enabled: yes
+      tags: service-restart
