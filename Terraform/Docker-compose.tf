@@ -12,28 +12,27 @@ resource "aws_instance" "test" {
     Name = "test-compose-TF"
   }
   
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    private_key = file("/home/or/Desktop/PrivateKeys/or.pem")
+    host        = aws_instance.test.public_ip
+  }
+
   provisioner "file" {
     source      = "docker-compose.yml"
     destination = "/home/ec2-user/docker-compose.yml"
   }
-
+  
   provisioner "remote-exec" {
     inline = [
       "sudo yum update -y",
       "sudo yum install docker -y",
+      "sudo systemctl enable docker.service",
+      "sudo systemctl start docker.service",
       "sudo curl -L \"https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
       "sudo chmod +x /usr/local/bin/docker-compose",
-      "sudo systemctl enable docker",
-      "sudo systemctl start docker",
-      "cd /home/ec2-user/Sela-Course/Terraform",
-      "sudo docker-compose up -d"
+      "sudo docker-compose -f /home/ec2-user/docker-compose.yml up -d"
     ]
-
-    connection {
-      type        = "ssh"
-      user        = "ec2-user"
-      private_key = file("/home/or/Desktop/PrivateKeys/or.pem")
-      host        = aws_instance.test.public_ip
-    }
   }
 }
