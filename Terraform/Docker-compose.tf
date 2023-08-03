@@ -5,19 +5,18 @@ provider "aws" {
 resource "aws_instance" "test" {
   ami           = "ami-0e00e602389e469a3"
   instance_type = "t2.micro"
+  key_name      = "or"
+  vpc_security_group_ids = ["sg-019220316a7d95404"]
 
   tags = {
     Name = "test-compose-TF"
   }
-
-  key_name = "or"
-
-  vpc_security_group_ids = ["sg-019220316a7d95404"]
-
+  
   provisioner "file" {
     source      = "docker-compose.yml"
     destination = "/home/ec2-user/docker-compose.yml"
-  }  
+  }
+
   provisioner "remote-exec" {
     inline = [
       "sudo yum update -y",
@@ -34,7 +33,7 @@ resource "aws_instance" "test" {
       type        = "ssh"
       user        = "ec2-user"
       private_key = file("/home/or/Desktop/PrivateKeys/or.pem")
-      host        = self.public_ip
+      host        = aws_instance.test.public_ip
     }
   }
 }
