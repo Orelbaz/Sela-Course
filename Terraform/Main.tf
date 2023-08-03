@@ -12,13 +12,6 @@ resource "google_container_cluster" "eks_prod" {
   node_config {
     machine_type = "e2-medium"
   }
-
-   node_pool {
-     autoscaling {
-       min_node_count = 1
-       max_node_count = 5
-     }
-   }
 }
 
 resource "google_container_cluster" "eks_test" {
@@ -29,11 +22,4 @@ resource "google_container_cluster" "eks_test" {
   node_config {
     machine_type = "e2-medium"
   }
-
-   node_pool {
-     autoscaling {
-       min_node_count = 1
-       max_node_count = 5
-     }
-   }
 }
