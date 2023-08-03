@@ -13,7 +13,6 @@ resource "google_container_cluster" "eks_prod" {
     machine_type = "e2-medium"
   }
 
-   Optional: Uncomment this block to enable autoscaling for eks-prod
    node_pool {
      autoscaling {
        min_node_count = 1
@@ -31,7 +30,6 @@ resource "google_container_cluster" "eks_test" {
     machine_type = "e2-medium"
   }
 
-   Optional: Uncomment this block to enable autoscaling for eks-test
    node_pool {
      autoscaling {
        min_node_count = 1
