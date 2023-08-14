@@ -13,18 +13,18 @@
 
     - name: Change directory
       become: true
-      command: cd /home/ec2-user/Jenkins/Ansible-jenkins/CoinSite/
+      command: cd /home/ec2-user/Jenkins/Ansible-pipeline/CoinSite/
       tags: cd
 
     - name: Install Python dependencies
       become: true
       pip:
-        requirements: /home/ec2-user/Jenkins/Ansible-jenkins/CoinSite/requirements.txt
+        requirements: /home/ec2-user/Jenkins/Ansible-pipeline/CoinSite/requirements.txt
       tags: pip
 
     - name: Set executable permissions for playbook
       file:
-        path: /home/ec2-user/Jenkins/Ansible-jenkins/CoinSite/app.py
+        path: /home/ec2-user/Jenkins/Ansible-pipeline/CoinSite/app.py
         mode: ugo+rx
       become: true
 
@@ -38,7 +38,7 @@
 
           [Service]
           User=root
-          WorkingDirectory=/home/ec2-user/Jenkins/Ansible-jenkins/CoinSite
+          WorkingDirectory=/home/ec2-user/Jenkins/Ansible-pipeline/CoinSite
           ExecStart=/usr/local/bin/flask run --host=0.0.0.0
           Restart=always
 
